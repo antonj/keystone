@@ -27,10 +27,12 @@ var Thumbnail = React.createClass({
 		if (width && height) title = width + ' x ' + height;
 
 		var actionLabel = this.props.deleted ? 'Undo' : 'Remove';
+		var captionName = 'caption_' + this.props.public_id;
 
 		if (!this.props.isQueued) {
 			imageDetails = (
 				<div className='image-details'>
+					<input type="text" className="form-control" placeholder="Caption" name={captionName} defaultValue={this.props.caption}></input>
 					<button onClick={this.props.toggleDelete} type='button' className='btn btn-link btn-cancel btn-undo-remove'>{actionLabel}</button>
 				</div>
 			);
