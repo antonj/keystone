@@ -80,7 +80,8 @@ cloudinaryimages.prototype.addToSchema = function() {
 		url:			String,
 		width:			Number,
 		height:			Number,
-		secure_url:		String
+		secure_url:		String,
+		caption:		String
 	});
 
 	// Generate cloudinary folder used to upload/select images
@@ -267,12 +268,24 @@ cloudinaryimages.prototype.getRequestHandler = function(item, req, paths, callba
 	callback = callback || function() {};
 
 	return function() {
+		// Captions
+		var captions = {};
+		var public_id;
+		_.each(req.body, function(value, key) {
+			if (key.indexOf('caption_') === 0) {
+				public_id = key.replace('caption_', '');
+				captions[public_id] = value;
+			}
+		});
+
+		var images = item.get(field.path);
+		images.forEach(function(value) {
+			value.caption = captions[value.public_id];
+		});
 
 		// Order
 		if (req.body[paths.order]) {
-			var images = item.get(field.path),
-				newOrder = req.body[paths.order].split(',');
-
+			var newOrder = req.body[paths.order].split(',');
 			images.sort(function(a, b) {
 				return (newOrder.indexOf(a.public_id) > newOrder.indexOf(b.public_id)) ? 1 : -1;
 			});
