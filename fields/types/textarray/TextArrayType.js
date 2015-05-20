@@ -54,7 +54,7 @@ textarray.prototype.validateInput = function(data, required, item) {
 
 textarray.prototype.updateItem = function(item, data) {
 	var value = this.getValueFromData(data);
-	
+
 	if ('undefined' !== typeof value) {
 		if (value === null) {
 			value = [];
@@ -68,6 +68,8 @@ textarray.prototype.updateItem = function(item, data) {
 		if (Array.isArray(value)) {
 			item.set(this.path, value);
 		}
+	} else {
+		item.set(this.path, []);
 	}
 };
 
