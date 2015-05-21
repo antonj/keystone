@@ -53,7 +53,11 @@ module.exports = React.createClass({
 	
 	handleBlur: function(e) {
 		if (this.state.value === this.props.value) return;
-		this.picker.setMoment(moment(this.state.value, this.props.format));
+		if (this.state.value) {
+			this.picker.setMoment(moment(this.state.value, this.props.format));
+		} else {
+			this.picker.setDate(null);
+		}
 	},
 
 	render: function() {
