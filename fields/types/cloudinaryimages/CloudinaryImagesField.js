@@ -5,9 +5,9 @@ var _ = require('underscore'),
 var SUPPORTED_TYPES = ['image/gif', 'image/png', 'image/jpeg', 'image/bmp', 'image/x-icon', 'application/pdf', 'image/x-tiff', 'image/x-tiff', 'application/postscript', 'image/vnd.adobe.photoshop', 'image/svg+xml'];
 
 var Thumbnail = React.createClass({
-	
+
 	displayName: 'CloudinaryImagesField',
-	
+
 	render: function() {
 		var iconClassName, imageDetails;
 
@@ -28,6 +28,8 @@ var Thumbnail = React.createClass({
 		var actionLabel = this.props.deleted ? 'Undo' : 'Remove';
 		var captionName = 'caption_' + this.props.public_id;
 
+		var previewSrc = this.props.url.split('/upload/').join('/upload/fl_progressive,h_240/');
+
 		if (!this.props.isQueued) {
 			imageDetails = (
 				<div className='image-details'>
@@ -38,10 +40,10 @@ var Thumbnail = React.createClass({
 		}
 
 		return (
-			<div className='image-field image-sortable row col-sm-3 col-md-12' title={title}> 
-				<div className={previewClassName}> 
+			<div className='image-field image-sortable row col-sm-3 col-md-12' title={title}>
+				<div className={previewClassName}>
 					<a arget="_blank" href={this.props.url} className='img-thumbnail'>
-						<img style={{ height: '90' }} className='img-load' src={this.props.url} />
+						<img style={{ height: '90' }} className='img-load' src={previewSrc} />
 						<span className={iconClassName} />
 					</a>
 				</div>
@@ -50,7 +52,7 @@ var Thumbnail = React.createClass({
 			</div>
 		);
 	}
-	
+
 });
 
 module.exports = Field.create({

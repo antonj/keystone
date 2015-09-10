@@ -163,7 +163,8 @@ module.exports = Field.create({
 	},
 
 	renderImagePreviewThumbnail: function() {
-		return <img key={this.props.path + '_preview_thumbnail'} className='img-load' style={{ height: '90' }} src={this.getImageSource()} />;
+		var s = this.getImageSource().split('/upload/').join('/upload/fl_progressive,h_240/');
+		return <img key={this.props.path + '_preview_thumbnail'} className='img-load' style={{ height: '90' }} src={s} />;
 	},
 
 	/**
